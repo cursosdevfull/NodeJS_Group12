@@ -2,10 +2,23 @@
   "name": "proyecto_curso",
   "version": "1.0",
   "description": "Proyecto del curso",
+  "scripts": {
+    "build": "tsc index.ts",
+    "build:tsc": "tsc index.ts",
+    "start": "tsc index.ts",
+    "build:app": "tsc app.ts",
+    "transpile": "tsc index.ts && tsc app.ts",
+    "transpile2": "npm run start && npm run build:app",
+    "transpile3": "tsc index.ts && npm run build:app",
+    "transpile4": "tsc index.ts app.ts",
+    "transpile5": "tsc",
+    "test": "tsc index.ts"
+  },
   "dependencies": {
-    "nodemon": "^2.0.21"
+    "express": "^4.18.2"
   },
   "devDependencies": {
+    "nodemon": "^2.0.21",
     "typescript": "^4.9.5"
   }
 }
