@@ -10,5 +10,6 @@
     "baseUrl": "./",
     "outDir": "./cache"
   },
-  "exclude": ["node_modules", "cache"]
+  "exclude": ["node_modules", "cache"],
+  "include": ["src/**/*"]
 }
