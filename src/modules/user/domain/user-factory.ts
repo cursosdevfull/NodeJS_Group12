@@ -1,7 +1,9 @@
-import { EmailCorporateVO } from "src/core/domain/value-objets/email-corporate-vo";
-import { EmailVO } from "src/core/domain/value-objets/email-vo";
+import { v4 } from "uuid";
 
-import { User } from "./user";
+import { EmailCorporateVO } from "../../../core/domain/value-objets/email-corporate-vo";
+import { EmailVO } from "../../../core/domain/value-objets/email-vo";
+import { UuidVO } from "../../../core/domain/value-objets/uuid-vo";
+import { User, UserProperties } from "./user";
 import { PasswordVO } from "./value-objets/password-vo";
 import { RolesVO } from "./value-objets/roles-vo";
 
@@ -14,9 +16,19 @@ export class UserFactory {
     password: string,
     roles: string[]
   ) {
+    const uuidVO = UuidVO.create(id);
+
     /*     if (!this.validateEmail(email)) {
       throw new Error("Invalid email");
     } */
+
+    if (!name.trim() || name.trim().length < 3) {
+      throw new Error("Invalid name");
+    }
+
+    if (!lastname.trim() || lastname.trim().length < 3) {
+      throw new Error("Invalid lastname");
+    }
 
     const emailVO = EmailVO.create(email);
     const emailCorporateVO = EmailCorporateVO.create(email);
@@ -38,14 +50,25 @@ export class UserFactory {
       throw new Error("Invalid roles");
     } */
 
-    return new User(
-      id,
+    const userProperties: UserProperties = {
+      id: uuidVO.getValue(),
+      name,
+      lastname,
+      email: emailVO.getValue(),
+      password: passwordVO.getValue(),
+      roles: rolesVO.getValue(),
+    };
+
+    return new User(userProperties);
+
+    /* return new User(
+      uuidVO.getValue(),
       name,
       lastname,
       emailCorporateVO.getValue(),
       passwordVO.getValue(),
       rolesVO.getValue()
-    );
+    ); */
   }
 
   static validateRoleByDomain(roles: string[], email: string) {
@@ -87,7 +110,7 @@ export class UserFactory {
 }
 
 const user = UserFactory.create(
-  "abc",
+  v4(),
   "John",
   "Doe",
   "johh.doe@company.org",
@@ -96,3 +119,5 @@ const user = UserFactory.create(
 );
 
 console.log(user);
+console.log(user.properties().email);
+console.log(user.delete(), user);

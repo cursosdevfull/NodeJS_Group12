@@ -8,7 +8,10 @@
     "noImplicitAny": true,
     "resolveJsonModule": true,
     "baseUrl": "./",
-    "outDir": "./cache"
+    "outDir": "./cache",
+    "paths": {
+      "core-domain/*": ["./src/core/domain/*"]
+    }
   },
   "exclude": ["node_modules", "cache"],
   "include": ["src/**/*"]

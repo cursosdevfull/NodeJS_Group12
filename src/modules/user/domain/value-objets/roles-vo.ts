@@ -1,4 +1,4 @@
-import { ValueObject } from "src/core/domain/value-objets/value-object";
+import { ValueObject } from "../../../../core/domain/value-objets/value-object";
 
 export class RolesVO extends ValueObject<string[]> {
   private constructor(roles: string[]) {
