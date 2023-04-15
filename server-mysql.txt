@@ -1,0 +1,1 @@
+docker run --name server-mysql-curso -e MYSQL_ROOT_PASSWORD=12345 -d -p 3310:3306 mysql:8
