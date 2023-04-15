@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script defer>
+      const url = "http://localhost:3000";
+      const options = {
+        method: "GET",
+        mode: "cors",
+        headers: {
+          "Content-Type": "text/plain",
+          "Access-Control-Allow-Origin": "http://localhost:3001",
+        },
+      };
+      fetch(url, options)
+        .then((response) => response.json())
+        .then((data) => console.log(data))
+        .catch((error) => console.log(error));
+    </script>
+  </body>
+</html>

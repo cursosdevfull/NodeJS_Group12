@@ -1,10 +1,13 @@
-import http from "http";
-
 import { app } from "./app";
+import ServerBootstrap from "./bootstrap/Server.bootstrap";
 
-const server = http.createServer(app);
+const server = new ServerBootstrap(app);
 
-server
-  .listen(3000)
-  .on("listening", () => console.log("Server running at http://localhost:3000"))
-  .on("error", (err) => console.log(err));
+(async () => {
+  try {
+    const listPromises = [server.initialize()];
+    await Promise.all(listPromises);
+  } catch (error) {
+    console.log(error);
+  }
+})();

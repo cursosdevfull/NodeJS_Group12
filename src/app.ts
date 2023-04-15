@@ -1,5 +1,7 @@
+import cors from "cors";
 import express, { Application, Request, Response } from "express";
 import fs from "fs";
+import helmet from "helmet";
 
 import ProductosRouter from "./modules/producto/routes";
 
@@ -26,22 +28,42 @@ class App {
 
   constructor() {
     this.app = express();
+    this.handleHealthCheck();
     this.handleMiddlewares();
     this.handleRoutes();
   }
 
+  handleHealthCheck() {
+    this.app.get("/", (req: Request, res: Response) => {
+      res.send("OK");
+    });
+
+    this.app.get("/health", (req: Request, res: Response) => {
+      res.send("OK");
+    });
+
+    this.app.get("/healthz", (req: Request, res: Response) => {
+      res.send("OK");
+    });
+
+    this.app.get("/healthcheck", (req: Request, res: Response) => {
+      res.send("OK");
+    });
+  }
+
   handleMiddlewares() {
+    const corsOptions = {
+      origin: ["http://localhost:3000", "http://localhost:3001"],
+    };
+
+    this.app.use(cors(corsOptions));
+    this.app.use(helmet());
     this.app.use(express.json());
     this.app.use(express.urlencoded({ extended: true }));
   }
 
   handleRoutes() {
     this.app.use("/productos", ProductosRouter);
-    /*     this.app.get("/productos", this.listProducts);
-    this.app.get("/productos/:id", this.getOneProduct);
-    this.app.post("/productos", this.insertProduct);
-    this.app.put("/productos/:id", this.updateProduct);
-    this.app.delete("/productos/:id", this.deleteProduct); */
 
     this.app.post("/usuarios", this.listUsers);
     this.app.post("/usuarios/insert", this.insertUser);

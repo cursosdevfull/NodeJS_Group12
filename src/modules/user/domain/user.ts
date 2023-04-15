@@ -30,12 +30,6 @@ export class User {
 
   constructor(properties: UserProperties) {
     Object.assign(this, properties);
-    /* this.id = id;
-    this.name = name;
-    this.lastname = lastname;
-    this.email = email;
-    this.password = password;
-    this.roles = roles; */
     this.active = true;
     this.createdAt = new Date();
   }
