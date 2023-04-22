@@ -1,17 +1,22 @@
 import { AppDataSource } from "./data-source";
 import { Car } from "./entity/Car";
 
-AppDataSource.initialize().then(async (conn) => {
-  const manager = conn.manager;
-
-  const cars = await manager
+AppDataSource.initialize().then(async () => {
+  const report = await AppDataSource.manager
     .createQueryBuilder()
     .from(Car, "car")
-    .select(["car.id", "car.brand", "car.model"])
-    .where("car.id>=:idMin")
-    .andWhere("car.id<=:idMax")
-    .setParameters({ idMin: 9, idMax: 11 })
+    .select([
+      "car.id",
+      "car.brand",
+      "car.model",
+      "car.year",
+      "car.color",
+      "user.name",
+      "user.email",
+      "user.age",
+    ])
+    .leftJoin("car.users", "user")
     .getRawMany();
 
-  console.log(cars);
+  console.log(report);
 });
