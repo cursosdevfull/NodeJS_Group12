@@ -1,0 +1,19 @@
+version: "3.8"
+
+services:
+  web-nginx:
+    image: nginx:alpine
+    container_name: web-nginx
+    ports:
+      - "4100:80"
+    networks:
+      - my-net
+    volumes:
+      - my-vol:/usr/share/nginx/html
+
+networks:
+  my-net:
+    driver: bridge
+
+volumes:
+  my-vol:
