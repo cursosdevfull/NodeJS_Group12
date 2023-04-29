@@ -7,6 +7,8 @@ const server = new ServerBootstrap(app);
   try {
     const listPromises = [server.initialize()];
     await Promise.all(listPromises);
+    console.log("Everything is ready!");
+    console.log("Server is running");
   } catch (error) {
     console.log(error);
   }

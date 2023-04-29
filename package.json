@@ -3,17 +3,10 @@
   "version": "1.0",
   "description": "Proyecto del curso",
   "scripts": {
-    "build": "tsc index.ts",
-    "build:tsc": "tsc index.ts",
+    "clean": "rimraf dist cache reports",
+    "build": "npm run clean && tsc && gulp minify",
     "start:dev": "nodemon src/index.ts",
-    "start": "ts-node src/index.ts",
-    "build:app": "tsc app.ts",
-    "transpile": "tsc index.ts && tsc app.ts",
-    "transpile2": "npm run start && npm run build:app",
-    "transpile3": "tsc index.ts && npm run build:app",
-    "transpile4": "tsc index.ts app.ts",
-    "transpile5": "tsc",
-    "test": "tsc index.ts"
+    "start": "node dist/index.js"
   },
   "dependencies": {
     "@types/cors": "^2.8.13",
@@ -21,7 +14,10 @@
     "chalk": "^4.1.2",
     "cors": "^2.8.5",
     "express": "^4.18.2",
+    "gulp": "^4.0.2",
+    "gulp-uglify-es": "^3.0.0",
     "helmet": "^6.1.5",
+    "rimraf": "^5.0.0",
     "uuid": "^9.0.0",
     "winston": "^3.8.2",
     "winston-daily-rotate-file": "^4.7.1"
