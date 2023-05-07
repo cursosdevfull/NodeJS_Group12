@@ -1,0 +1,37 @@
+version: "3.8"
+
+services:
+  mysql-server:
+    image: mysql:8
+    container_name: mysql-server
+    restart: always
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: db
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+    networks:
+      - backend
+    volumes:
+      - mysql-vol:/var/lib/mysql
+
+  mysql-client:
+    image: phpmyadmin:5
+    container_name: mysql-client
+    restart: always
+    ports:
+      - 8200:80
+    environment:
+      - PMA_ARBITRARY=1
+    networks:
+      - backend
+
+networks:
+  backend:
+    name: net-backend
+    driver: bridge
+
+volumes:
+  mysql-vol:

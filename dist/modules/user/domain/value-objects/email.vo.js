@@ -1,0 +1,1 @@
+"use strict";Object.defineProperty(exports,"__esModule",{value:!0}),exports.EmailVO=void 0;class EmailVO{constructor(e){if(!e.includes("@"))throw new Error("Invalid email");this.value=e}static create(e){return new EmailVO(e)}getValue(){return this.value}}exports.EmailVO=EmailVO;

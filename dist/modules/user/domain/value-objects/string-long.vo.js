@@ -1,0 +1,1 @@
+"use strict";Object.defineProperty(exports,"__esModule",{value:!0}),exports.StringLongVO=void 0;class StringLongVO{constructor(t,e,r){if(t.length<r)throw new Error(`${e} must be at least ${r} characters long`);this.value=t}static create(t,e,r){return new StringLongVO(t,e,r)}getValue(){return this.value}}exports.StringLongVO=StringLongVO;

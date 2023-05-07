@@ -1,0 +1,1 @@
+"use strict";Object.defineProperty(exports,"__esModule",{value:!0}),exports.ValueObject=void 0;class ValueObject{getValue(){return this.value}}exports.ValueObject=ValueObject;
