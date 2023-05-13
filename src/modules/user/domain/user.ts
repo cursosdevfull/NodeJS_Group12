@@ -1,4 +1,4 @@
-import { v4 as uuidv4, validate } from "uuid";
+import { validate } from "uuid";
 
 /*
 
@@ -45,6 +45,10 @@ export interface UserOptional {
 
 export type UserProperties = UserRequired & Partial<UserOptional>;
 
+export type UserUpdateProperties = Partial<
+  Omit<UserRequired, "email"> & Pick<UserOptional, "photo">
+>;
+
 export class User {
   private readonly id: string;
   private name: string;
@@ -59,9 +63,6 @@ export class User {
   private deletedAt: Date | null;
 
   constructor(properties: UserProperties) {
-    this.id = uuidv4();
-    this.active = true;
-    this.createdAt = new Date();
     Object.assign(this, properties);
 
     if (!validate(this.id)) throw new Error("Invalid id");
@@ -81,5 +82,19 @@ export class User {
       updatedAt: this.updatedAt,
       deletedAt: this.deletedAt,
     };
+  }
+
+  update(userUpdateProperties: UserUpdateProperties) {
+    Object.assign(this, userUpdateProperties);
+    this.updatedAt = new Date();
+  }
+
+  delete() {
+    this.deletedAt = new Date();
+    this.active = false;
+  }
+
+  static reconstitute(properties: UserProperties) {
+    return new User(properties);
   }
 }

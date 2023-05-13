@@ -19,6 +19,14 @@ class UserRoutes {
 
   addRoutes() {
     this.router.post("/", userController.insert.bind(userController));
+    this.router.get("/:id", userController.getOne.bind(userController));
+    this.router.get(
+      "/page/:page/:pageSize",
+      userController.getByPage.bind(userController)
+    );
+    this.router.get("/", userController.getAll.bind(userController));
+    this.router.put("/:id", userController.update.bind(userController));
+    this.router.delete("/:id", userController.delete.bind(userController));
   }
 }
 

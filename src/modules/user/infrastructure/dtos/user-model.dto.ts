@@ -1,6 +1,7 @@
+import { plainToInstance } from "class-transformer";
 import { RoleEntity } from "src/modules/role/infrastructure/entities/role.entity";
 
-import { UserCreateResponse } from "../../domain/responses/user-create";
+import { UserResponse } from "../../application/responses/user-created";
 import { User } from "../../domain/user";
 import { UserEntity } from "../entities/user.entity";
 
@@ -17,14 +18,19 @@ export class UserModelDto {
     userEntity.photo = properties.photo;
     userEntity.active = properties.active;
     userEntity.roles = properties.roles as RoleEntity[];
+    userEntity.createdAt = properties.createdAt;
+    userEntity.updatedAt = properties.updatedAt;
+    userEntity.deletedAt = properties.deletedAt;
 
     return userEntity;
   }
 
   static fromDataToResponse(
     data: UserEntity | UserEntity[]
-  ): UserCreateResponse | UserCreateResponse[] {
-    if (Array.isArray(data)) {
+  ): UserResponse | UserResponse[] {
+    return plainToInstance(UserResponse, data);
+
+    /* if (Array.isArray(data)) {
       return data.map((item) =>
         this.fromDataToResponse(item)
       ) as UserCreateResponse[];
@@ -35,6 +41,6 @@ export class UserModelDto {
       name: data.name,
       lastname: data.lastname,
       email: data.email,
-    };
+    }; */
   }
 }

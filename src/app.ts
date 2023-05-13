@@ -2,6 +2,7 @@ import cors from "cors";
 import express, { Application, Request, Response } from "express";
 import helmet from "helmet";
 
+import { HandlersErrors } from "./helpers/Errors";
 import { userRoutes } from "./modules/user/interfaces/http/user.routes";
 
 interface Product {
@@ -29,7 +30,9 @@ class App {
     this.app = express();
     this.handleHealthCheck();
     this.handleMiddlewares();
+    this.handleWebSiteHTML();
     this.handleRoutes();
+    this.handleErrors();
   }
 
   handleHealthCheck() {
@@ -50,6 +53,10 @@ class App {
     });
   }
 
+  handleWebSiteHTML() {
+    this.app.use("/html", express.static("public/web"));
+  }
+
   handleMiddlewares() {
     const corsOptions = {
       origin: ["http://localhost:3000", "http://localhost:3001"],
@@ -59,10 +66,21 @@ class App {
     this.app.use(helmet());
     this.app.use(express.json());
     this.app.use(express.urlencoded({ extended: true }));
+    this.app.set("view engine", "ejs");
+    this.app.set("views", "src/views");
+
+    this.app.get("/ejs", (req: Request, res: Response) => {
+      res.render("home", { username: "Sergio" });
+    });
   }
 
   handleRoutes() {
     this.app.use("/user", userRoutes);
+  }
+
+  handleErrors() {
+    this.app.use(HandlersErrors.notFound);
+    this.app.use(HandlersErrors.generic);
   }
 }
 

@@ -1,6 +1,10 @@
 export class Parameters {
   static readonly PORT = process.env.PORT || 3000;
 
+  static get ENVIRONMENT() {
+    return process.env.NODE_ENV || "development";
+  }
+
   static get DB_CONFIG() {
     return {
       host: process.env.DB_HOST || "localhost",
@@ -12,7 +16,7 @@ export class Parameters {
       password: process.env.DB_PASSWORD || "password",
       database: process.env.DB_DATABASE || "db",
       synchronize: process.env.DB_SYNCHRONIZE === "false" ? false : true,
-      logging: process.env.DB_LOGGING === "false" ? false : true,
+      logging: process.env.DB_LOGGING === "false" ? false : false,
       poolSize: Number(process.env.DB_POOL_SIZE) || 10,
       maxQueryExecutionTime:
         Number(process.env.DB_MAX_QUERY_EXECUTION_TIME) || 10000,
