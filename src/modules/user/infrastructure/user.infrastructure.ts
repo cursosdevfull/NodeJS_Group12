@@ -77,8 +77,18 @@ export class UserInfrastructure implements UserRepository, AuthRepository {
         relations: ["roles"],
       });
 
+      if (!userEntity) {
+        const objErr: IError = new Error();
+        objErr.message = "User not found";
+        objErr.stack = "User not found";
+        objErr.status = 404;
+        return err(objErr);
+      }
+
+      /* await repository.query(`SELECT * FROM users WHERE email = '${email}'`) */
+
       //return ok(UserDto.fromDataToResponse(userEntity));
-      return ok(UserDto.fromDataToDomain(userEntity as UserEntity));
+      return ok(UserDto.fromDataToDomainWithRoles(userEntity as UserEntity));
     } catch (error) {
       const objErr: IError = new Error();
       objErr.message = error.message;
@@ -87,6 +97,41 @@ export class UserInfrastructure implements UserRepository, AuthRepository {
 
       return err(objErr);
     }
+  }
+
+  async getByRefreshToken(refreshToken: string): Promise<UserGetResult> {
+    try {
+      const repository =
+        DatabaseBootstrap.dataSource?.getRepository(UserEntity);
+      const userEntity = await repository?.findOne({
+        where: { refreshToken, active: true },
+        relations: ["roles"],
+      });
+
+      if (!userEntity) {
+        const objErr: IError = new Error();
+        objErr.message = "User not found";
+        objErr.stack = "User not found";
+        objErr.status = 404;
+        return err(objErr);
+      }
+
+      return ok(UserDto.fromDataToDomainWithRoles(userEntity as UserEntity));
+    } catch (error) {
+      const objErr: IError = new Error();
+      objErr.message = error.message;
+      objErr.stack = error.stack;
+      objErr.status = 500;
+
+      return err(objErr);
+    }
+  }
+
+  async getUserList() {
+    const manager = DatabaseBootstrap.dataSource?.manager;
+
+    const users = await manager?.query(`select * from user`);
+    return users;
   }
 
   async getAll(): Promise<UserGetResult> {

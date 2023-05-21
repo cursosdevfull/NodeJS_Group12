@@ -28,6 +28,31 @@ services:
     networks:
       - backend
 
+  redis-server:
+    image: redis:6.0.5-alpine
+    container_name: redis-server
+    command: redis-server --requirepass todovale
+    restart: always
+    ports:
+      - 6379:6379
+    networks:
+      - backend
+
+  redis-client:
+    container_name: redis-client
+    image: rediscommander/redis-commander:latest
+    restart: always
+    environment:
+      - REDIS_HOST=redis-server
+      - REDIS_PORT=6379
+      - REDIS_PASSWORD=todovale
+    ports:
+      - "8081:8081"
+    depends_on:
+      - redis-server
+    networks:
+      - backend
+
 networks:
   backend:
     name: net-backend

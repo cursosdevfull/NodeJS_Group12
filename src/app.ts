@@ -2,7 +2,9 @@ import cors from "cors";
 import express, { Application, Request, Response } from "express";
 import helmet from "helmet";
 
+import RedisBootstrap from "./bootstrap/Redis.bootstrap";
 import { HandlersErrors } from "./helpers/Errors";
+import { authRoutes } from "./modules/auth/interfaces/http/auth.routes";
 import { userRoutes } from "./modules/user/interfaces/http/user.routes";
 
 interface Product {
@@ -76,6 +78,11 @@ class App {
 
   handleRoutes() {
     this.app.use("/user", userRoutes);
+    this.app.use("/auth", authRoutes);
+    this.app.get("/invalidate-cache", (req: Request, res: Response) => {
+      RedisBootstrap.clear();
+      res.send("Cache cleared");
+    });
   }
 
   handleErrors() {

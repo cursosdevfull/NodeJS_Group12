@@ -12,6 +12,7 @@ export class UserFactory {
     const userProperties: UserProperties = {
       ...properties,
       id: uuidv4(),
+      refreshToken: uuidv4(),
       active: true,
       createdAt: new Date(),
     };

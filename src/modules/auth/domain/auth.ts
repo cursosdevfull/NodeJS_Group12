@@ -1,7 +1,7 @@
-import { StringLongVO } from "core-domain/value-objets/string-long.vo";
 import { err, ok, Result } from "neverthrow";
 
 import { EmailVO } from "../../../core/domain/value-objets/email.vo";
+import { StringLongVO } from "../../../core/domain/value-objets/string-long.vo";
 
 export type AuthProperties = {
   readonly email: string;

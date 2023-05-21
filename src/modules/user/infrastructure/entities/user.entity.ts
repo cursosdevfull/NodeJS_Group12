@@ -26,6 +26,9 @@ export class UserEntity extends BaseEntity {
   @Column({ type: "bool", default: true })
   active: boolean;
 
+  @Column({ type: "varchar", length: 300 })
+  refreshToken: string;
+
   @ManyToMany(() => RoleEntity, (role) => role.users)
   @JoinTable()
   roles: RoleEntity[];

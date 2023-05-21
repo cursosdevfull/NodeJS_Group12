@@ -28,10 +28,34 @@ export class UserDto {
       password: data.password,
       photo: data.photo,
       active: data.active,
-      roles: data.roles.map((item) => item.id),
+      roles: data.roles?.map((item) => item.id),
       createdAt: data.createdAt,
       updatedAt: data.updatedAt,
       deletedAt: data.deletedAt,
+      refreshToken: data.refreshToken,
+    };
+    return User.reconstitute(properties);
+  }
+
+  static fromDataToDomainWithRoles(
+    data: UserEntity | UserEntity[]
+  ): User | User[] {
+    if (Array.isArray(data)) {
+      return data.map((item) => this.fromDataToDomainWithRoles(item)) as User[];
+    }
+    const properties: UserProperties = {
+      id: data.id,
+      name: data.name,
+      lastname: data.lastname,
+      email: data.email,
+      password: data.password,
+      photo: data.photo,
+      active: data.active,
+      roles: data.roles.map((item) => item.name),
+      createdAt: data.createdAt,
+      updatedAt: data.updatedAt,
+      deletedAt: data.deletedAt,
+      refreshToken: data.refreshToken,
     };
     return User.reconstitute(properties);
   }

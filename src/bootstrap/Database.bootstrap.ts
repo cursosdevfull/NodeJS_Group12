@@ -8,7 +8,6 @@ export default class DatabaseBootstrap implements Bootstrap {
 
   initialize(): Promise<boolean | DataSource> {
     const dbConfig = Parameters.DB_CONFIG;
-    console.log("Database config: ", dbConfig);
 
     const AppDataSource = new DataSource({
       type: "mysql",

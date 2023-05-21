@@ -21,6 +21,7 @@ export class UserModelDto {
     userEntity.createdAt = properties.createdAt;
     userEntity.updatedAt = properties.updatedAt;
     userEntity.deletedAt = properties.deletedAt;
+    userEntity.refreshToken = properties.refreshToken;
 
     return userEntity;
   }

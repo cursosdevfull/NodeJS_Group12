@@ -38,6 +38,7 @@ export interface UserOptional {
   readonly id: string;
   readonly photo: string;
   readonly active: boolean;
+  readonly refreshToken: string;
   readonly createdAt: Date;
   readonly updatedAt: Date;
   readonly deletedAt: Date;
@@ -46,7 +47,7 @@ export interface UserOptional {
 export type UserProperties = UserRequired & Partial<UserOptional>;
 
 export type UserUpdateProperties = Partial<
-  Omit<UserRequired, "email"> & Pick<UserOptional, "photo">
+  Omit<UserRequired, "email"> & Pick<UserOptional, "photo" | "refreshToken">
 >;
 
 export class User {
@@ -61,6 +62,7 @@ export class User {
   private readonly createdAt: Date;
   private updatedAt: Date | null;
   private deletedAt: Date | null;
+  private refreshToken: string;
 
   constructor(properties: UserProperties) {
     Object.assign(this, properties);
@@ -81,6 +83,7 @@ export class User {
       createdAt: this.createdAt,
       updatedAt: this.updatedAt,
       deletedAt: this.deletedAt,
+      refreshToken: this.refreshToken,
     };
   }
 

@@ -1,5 +1,8 @@
 import { Router } from "express";
 
+import { AuthenticationGuard } from "../../../../core/middlewares/authentication.guard";
+import { AuthorizationGuard } from "../../../../core/middlewares/authorization.guard";
+import { CacheMiddleware } from "../../../../core/middlewares/cache.middleware";
 import { UserApplication } from "../../application/user.application";
 import { UserRepository } from "../../domain/repositories/user.repository";
 import { UserInfrastructure } from "../../infrastructure/user.infrastructure";
@@ -24,7 +27,13 @@ class UserRoutes {
       "/page/:page/:pageSize",
       userController.getByPage.bind(userController)
     );
-    this.router.get("/", userController.getAll.bind(userController));
+    this.router.get(
+      "/",
+      AuthenticationGuard.canActive,
+      AuthorizationGuard.canActive("ADMIN", "MEDIC"),
+      CacheMiddleware.build("user"),
+      userController.getAll.bind(userController)
+    );
     this.router.put("/:id", userController.update.bind(userController));
     this.router.delete("/:id", userController.delete.bind(userController));
   }

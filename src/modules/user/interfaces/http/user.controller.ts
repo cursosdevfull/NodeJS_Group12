@@ -1,6 +1,7 @@
 import { validate } from "class-validator";
 import { NextFunction, Request, Response } from "express";
 
+import RedisBootstrap from "../../../../bootstrap/Redis.bootstrap";
 import { IError } from "../../../../core/error/error.interface";
 import { UserApplication } from "../../application/user.application";
 import { User, UserProperties, UserUpdateProperties } from "../../domain/user";
@@ -87,6 +88,8 @@ export class UserController {
     if (getAllResult.isErr()) {
       return next(getAllResult.error);
     }
+
+    RedisBootstrap.set(res.locals.cacheKey, JSON.stringify(getAllResult.value));
 
     return res.status(200).json(getAllResult.value);
   }
