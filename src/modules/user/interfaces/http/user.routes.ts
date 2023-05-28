@@ -1,12 +1,16 @@
-import { Router } from "express";
+import { Router } from 'express';
 
-import { AuthenticationGuard } from "../../../../core/middlewares/authentication.guard";
-import { AuthorizationGuard } from "../../../../core/middlewares/authorization.guard";
-import { CacheMiddleware } from "../../../../core/middlewares/cache.middleware";
-import { UserApplication } from "../../application/user.application";
-import { UserRepository } from "../../domain/repositories/user.repository";
-import { UserInfrastructure } from "../../infrastructure/user.infrastructure";
-import { UserController } from "./user.controller";
+import { AuthenticationGuard } from '../../../../core/middlewares/authentication.guard';
+import { AuthorizationGuard } from '../../../../core/middlewares/authorization.guard';
+import { CacheMiddleware } from '../../../../core/middlewares/cache.middleware';
+import {
+  Upload,
+  UploadBuilder,
+} from '../../../../core/middlewares/upload.middleware';
+import { UserApplication } from '../../application/user.application';
+import { UserRepository } from '../../domain/repositories/user.repository';
+import { UserInfrastructure } from '../../infrastructure/user.infrastructure';
+import { UserController } from './user.controller';
 
 const userInfrastructure: UserRepository = new UserInfrastructure();
 const userApplication = new UserApplication(userInfrastructure);
@@ -21,21 +25,33 @@ class UserRoutes {
   }
 
   addRoutes() {
-    this.router.post("/", userController.insert.bind(userController));
-    this.router.get("/:id", userController.getOne.bind(userController));
+    this.router.post(
+      '/',
+      Upload.save(
+        new UploadBuilder()
+          .addFieldName('photo')
+          .addMaxSize(1024 * 1024 * 5)
+          .addAllowedMimeTypes(['image/png', 'image/jpg', 'image/jpeg'])
+          .addDestination('photos/profile')
+          .addIsPublic(true)
+          .build()
+      ),
+      userController.insert.bind(userController)
+    );
+    this.router.get('/:id', userController.getOne.bind(userController));
     this.router.get(
-      "/page/:page/:pageSize",
+      '/page/:page/:pageSize',
       userController.getByPage.bind(userController)
     );
     this.router.get(
-      "/",
+      '/',
       AuthenticationGuard.canActive,
-      AuthorizationGuard.canActive("ADMIN", "MEDIC"),
-      CacheMiddleware.build("user"),
+      AuthorizationGuard.canActive('ADMIN', 'MEDIC'),
+      CacheMiddleware.build('user'),
       userController.getAll.bind(userController)
     );
-    this.router.put("/:id", userController.update.bind(userController));
-    this.router.delete("/:id", userController.delete.bind(userController));
+    this.router.put('/:id', userController.update.bind(userController));
+    this.router.delete('/:id', userController.delete.bind(userController));
   }
 }
 

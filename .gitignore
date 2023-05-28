@@ -3,3 +3,7 @@ cache
 logs
 MyProject
 data-mysql
+.scannerwork
+data-mysql
+dist
+reports

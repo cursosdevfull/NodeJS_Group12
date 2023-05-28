@@ -1,8 +1,6 @@
-import { NextFunction, Request, Response } from "express";
+import { NextFunction, Request, Response } from 'express';
 
-export class AuthorizationGuard {
-  private constructor() {}
-
+export abstract class AuthorizationGuard {
   static canActive(...rolesAllowed: string[]) {
     return (req: Request, res: Response, next: NextFunction) => {
       const locals: Record<string, any> = res.locals;
@@ -14,9 +12,9 @@ export class AuthorizationGuard {
       }
 
       const error: Record<string, any> = new Error();
-      error.message = "Access forbidden";
+      error.message = 'Access forbidden';
       error.status = 409;
-      error.stack = "Access forbidden";
+      error.stack = 'Access forbidden';
 
       return next(error);
     };

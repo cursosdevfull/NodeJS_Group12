@@ -1,10 +1,10 @@
-import { Router } from "express";
-import { UserRepository } from "src/modules/user/domain/repositories/user.repository";
+import { Router } from 'express';
+import { UserRepository } from 'src/modules/user/domain/repositories/user.repository';
 
-import { UserInfrastructure } from "../../../user/infrastructure/user.infrastructure";
-import { AuthApplication } from "../../application/auth.application";
-import { AuthRepository } from "../../domain/repositories/auth.repository";
-import { AuthController } from "./auth.controller";
+import { UserInfrastructure } from '../../../user/infrastructure/user.infrastructure';
+import { AuthApplication } from '../../application/auth.application';
+import { AuthRepository } from '../../domain/repositories/auth.repository';
+import { AuthController } from './auth.controller';
 
 const userInfrastructure: AuthRepository & UserRepository =
   new UserInfrastructure();
@@ -20,10 +20,10 @@ class AuthRoutes {
   }
 
   addRoutes() {
-    this.router.post("/login", authController.login.bind(authController));
-    this.router.get("/", authController.getUserList.bind(authController));
+    this.router.post('/login', authController.login.bind(authController));
+    this.router.get('/', authController.getUserList.bind(authController));
     this.router.post(
-      "/new-access-token",
+      '/new-access-token',
       authController.getNewAccessToken.bind(authController)
     );
   }

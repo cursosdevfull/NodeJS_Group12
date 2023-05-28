@@ -1,4 +1,4 @@
-version: "3.8"
+version: '3.8'
 
 services:
   mysql-server:
@@ -47,9 +47,37 @@ services:
       - REDIS_PORT=6379
       - REDIS_PASSWORD=todovale
     ports:
-      - "8081:8081"
+      - '8081:8081'
     depends_on:
       - redis-server
+    networks:
+      - backend
+
+  sonarqube:
+    image: sonarqube:8-community
+    container_name: sonarqube
+    ports:
+      - '9000:9000'
+      - '9092:9092'
+    networks:
+      - backend
+
+  locust-master:
+    build:
+      context: .
+      dockerfile: locust/Dockerfile
+    container_name: locust-master
+    ports:
+      - '8089:8089'
+    command: '--host http://2ee3-38-25-17-118.ngrok-free.app --master'
+    networks:
+      - backend
+
+  locust-slave:
+    build:
+      context: .
+      dockerfile: locust/Dockerfile
+    command: '--host http://2ee3-38-25-17-118.ngrok-free.app --master-host=locust-master --slave'
     networks:
       - backend
 

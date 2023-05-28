@@ -1,9 +1,9 @@
-import { plainToInstance } from "class-transformer";
-import { RoleEntity } from "src/modules/role/infrastructure/entities/role.entity";
+import { plainToInstance } from 'class-transformer';
+import { RoleEntity } from 'src/modules/role/infrastructure/entities/role.entity';
 
-import { UserResponse } from "../../application/responses/user-created";
-import { User } from "../../domain/user";
-import { UserEntity } from "../entities/user.entity";
+import { UserResponse } from '../../application/responses/user-created';
+import { User } from '../../domain/user';
+import { UserEntity } from '../entities/user.entity';
 
 export class UserModelDto {
   static fromDomainToData(user: User): UserEntity {

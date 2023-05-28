@@ -1,6 +1,6 @@
-import { err, ok, Result } from "neverthrow";
+import { err, ok, Result } from 'neverthrow';
 
-import { IError } from "../../error/error.interface";
+import { IError } from '../../error/error.interface';
 
 export class EmailVO {
   private readonly value: string;
@@ -10,7 +10,7 @@ export class EmailVO {
   }
 
   static create(value: string): Result<EmailVO, IError> {
-    if (!value.includes("@")) return err(new Error("Invalid email"));
+    if (!value.includes('@')) return err(new Error('Invalid email'));
     return ok(new EmailVO(value));
   }
 

@@ -1,6 +1,6 @@
-import { err, ok, Result } from "neverthrow";
+import { err, ok, Result } from 'neverthrow';
 
-import { IError } from "../../error/error.interface";
+import { IError } from '../../error/error.interface';
 
 export class StringLongVO {
   private readonly value: string;

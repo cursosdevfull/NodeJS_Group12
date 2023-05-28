@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testExecutions version="1">
+  <file path="D:\Cursos\NodeJS_Group12\test\sum.spec.ts">
+    <testCase name="Test sum sum of positive numbers is positive" duration="3"/>
+  </file>
+  <file path="D:\Cursos\NodeJS_Group12\test\unit\UserController.spec.ts">
+    <testCase name="UserController getAll" duration="6"/>
+    <testCase name="UserController getOne" duration="46"/>
+  </file>
+</testExecutions>

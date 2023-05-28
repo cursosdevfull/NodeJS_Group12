@@ -1,13 +1,13 @@
-import { err, ok, Result } from "neverthrow";
-import { IError } from "src/core/error/error.interface";
+import { err, ok, Result } from 'neverthrow';
+import { IError } from 'src/core/error/error.interface';
 
-import { TokenService } from "../../../core/services/token.service";
-import { Crypt } from "../../../helpers/Crypt";
-import { UserRepository } from "../../user/domain/repositories/user.repository";
-import { User } from "../../user/domain/user";
-import { Auth } from "../domain/auth";
-import { AuthRepository } from "../domain/repositories/auth.repository";
-import { AuthLoginResponseDto } from "./dtos/auth-login-response.dto";
+import { TokenService } from '../../../core/services/token.service';
+import { Crypt } from '../../../helpers/Crypt';
+import { UserRepository } from '../../user/domain/repositories/user.repository';
+import { User } from '../../user/domain/user';
+import { Auth } from '../domain/auth';
+import { AuthRepository } from '../domain/repositories/auth.repository';
+import { AuthLoginResponseDto } from './dtos/auth-login-response.dto';
 
 export class AuthApplication {
   constructor(private readonly repository: AuthRepository & UserRepository) {}
@@ -35,8 +35,8 @@ export class AuthApplication {
     }
 
     const error: IError = new Error();
-    error.message = "Invalid credentials";
-    error.stack = "Invalid credentials";
+    error.message = 'Invalid credentials';
+    error.stack = 'Invalid credentials';
     error.status = 401;
 
     return err(error);
@@ -62,7 +62,7 @@ export class AuthApplication {
     return ok(authLoginResponseDto);
   }
 
-  async getUserList() {
-    return await this.repository.getUserList();
+  getUserList() {
+    return this.repository.getUserList();
   }
 }

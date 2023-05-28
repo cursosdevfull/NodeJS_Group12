@@ -4,7 +4,7 @@ import {
   IsString,
   IsUUID,
   MinLength,
-} from "class-validator";
+} from 'class-validator';
 
 export class UserUpdateDto {
   @IsNotEmpty()

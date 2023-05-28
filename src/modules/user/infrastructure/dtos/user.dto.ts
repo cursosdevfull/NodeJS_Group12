@@ -1,13 +1,13 @@
-import { instanceToPlain, plainToInstance } from "class-transformer";
+import { instanceToPlain, plainToInstance } from 'class-transformer';
 
-import { UserResponse } from "../../application/responses/user-created";
-import { User, UserProperties } from "../../domain/user";
-import { UserEntity } from "../entities/user.entity";
+import { UserResponse } from '../../application/responses/user-created';
+import { User, UserProperties } from '../../domain/user';
+import { UserEntity } from '../entities/user.entity';
 
 export class UserDto {
   static fromDomainToResponse(user: User) {
     const instance = plainToInstance(UserResponse, user.properties());
-    return instanceToPlain(instance, { groups: ["admin", "operators"] });
+    return instanceToPlain(instance, { groups: ['admin', 'operators'] });
   }
 
   static fromDataToResponse(

@@ -1,4 +1,4 @@
-import { ValueObject } from "./value-object";
+import { ValueObject } from './value-object';
 
 export class EmailCorporateVO extends ValueObject<string> {
   private constructor(email: string) {
@@ -7,14 +7,14 @@ export class EmailCorporateVO extends ValueObject<string> {
   }
 
   private static validateEmailCorporate(email: string) {
-    const domainAllowed = ["company.org", "company.com", "company.net"];
-    const domain = email.split("@")[1];
+    const domainAllowed = ['company.org', 'company.com', 'company.net'];
+    const domain = email.split('@')[1];
     return domainAllowed.includes(domain);
   }
 
   static create(email: string): EmailCorporateVO {
     if (!this.validateEmailCorporate(email)) {
-      throw new Error("Invalid email corporate");
+      throw new Error('Invalid email corporate');
     }
     return new EmailCorporateVO(email);
   }

@@ -1,7 +1,7 @@
-import { NextFunction, Request, Response } from "express";
+import { NextFunction, Request, Response } from 'express';
 
-import RedisBootstrap from "../../bootstrap/Redis.bootstrap";
-import logger from "../../helpers/Logger";
+import RedisBootstrap from '../../bootstrap/Redis.bootstrap';
+import logger from '../../helpers/Logger';
 
 export class CacheMiddleware {
   private static setParameters(key: string, params: Record<string, any>) {
@@ -26,11 +26,10 @@ export class CacheMiddleware {
       if (value) {
         logger.info(`Cache hit: ${cacheKey}`);
         return res.send(JSON.parse(value));
-      } else {
-        logger.info(`Cache miss: ${cacheKey}`);
-        res.locals.cacheKey = cacheKey;
-        next();
       }
+      logger.info(`Cache miss: ${cacheKey}`);
+      res.locals.cacheKey = cacheKey;
+      next();
     };
   }
 }

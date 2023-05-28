@@ -1,11 +1,11 @@
-import { err, ok, Result } from "neverthrow";
-import { v4 as uuidv4 } from "uuid";
+import { err, ok, Result } from 'neverthrow';
+import { v4 as uuidv4 } from 'uuid';
 
-import { EmailVO } from "../../../core/domain/value-objets/email.vo";
-import { StringLongVO } from "../../../core/domain/value-objets/string-long.vo";
-import { IError } from "../../../core/error/error.interface";
-import { User, UserProperties } from "./user";
-import { RoleVO } from "./value-objects/role.vo";
+import { EmailVO } from '../../../core/domain/value-objets/email.vo';
+import { StringLongVO } from '../../../core/domain/value-objets/string-long.vo';
+import { IError } from '../../../core/error/error.interface';
+import { User, UserProperties } from './user';
+import { RoleVO } from './value-objects/role.vo';
 
 export class UserFactory {
   static create(properties: UserProperties): Result<User, IError> {
@@ -17,7 +17,7 @@ export class UserFactory {
       createdAt: new Date(),
     };
 
-    const nameResult = StringLongVO.create(userProperties.name, "Name", 3);
+    const nameResult = StringLongVO.create(userProperties.name, 'Name', 3);
     if (nameResult.isErr()) {
       const error: IError = new Error();
       error.status = 411;
@@ -29,7 +29,7 @@ export class UserFactory {
 
     const lastnameResult = StringLongVO.create(
       userProperties.lastname,
-      "Lastname",
+      'Lastname',
       3
     );
     if (lastnameResult.isErr()) {
@@ -43,7 +43,7 @@ export class UserFactory {
 
     const passwordResult = StringLongVO.create(
       userProperties.password,
-      "Password",
+      'Password',
       8
     );
     if (passwordResult.isErr()) {

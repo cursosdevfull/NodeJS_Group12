@@ -1,6 +1,6 @@
-import chalk from "chalk";
-import winston from "winston";
-import DailyRotateFile from "winston-daily-rotate-file";
+import chalk from 'chalk';
+import winston from 'winston';
+import DailyRotateFile from 'winston-daily-rotate-file';
 
 const levels: Record<string, any> = {
   error: chalk.red.bold,
@@ -17,7 +17,7 @@ const logFormat = winston.format.printf(({ level, message, timestamp }) => {
 });
 
 const logger = winston.createLogger({
-  level: "info",
+  level: 'info',
   format: winston.format.combine(
     winston.format.timestamp(),
     winston.format.errors({ stack: true }),
@@ -26,11 +26,11 @@ const logger = winston.createLogger({
   transports: [
     new winston.transports.Console(),
     new DailyRotateFile({
-      filename: "logs/%DATE%.log",
-      datePattern: "YYYY-MM-DD",
+      filename: 'logs/%DATE%.log',
+      datePattern: 'YYYY-MM-DD',
       zippedArchive: true,
-      maxSize: "20m",
-      maxFiles: "14d",
+      maxSize: '20m',
+      maxFiles: '14d',
     }),
   ],
 });

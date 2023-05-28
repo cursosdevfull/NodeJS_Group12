@@ -1,9 +1,9 @@
-import { Application } from "express";
-import http from "http";
+import { Application } from 'express';
+import http from 'http';
 
-import logger from "../helpers/Logger";
-import { Parameters } from "../helpers/Parameters";
-import { Bootstrap } from "./bootstrap.interface";
+import logger from '../helpers/Logger';
+import { Parameters } from '../helpers/Parameters';
+import { Bootstrap } from './bootstrap.interface';
 
 export default class implements Bootstrap {
   constructor(private readonly app: Application) {}
@@ -16,11 +16,11 @@ export default class implements Bootstrap {
 
       server
         .listen(PORT)
-        .on("listening", () => {
+        .on('listening', () => {
           logger.info(`Server running at http://localhost:${PORT}`);
           resolve(true);
         })
-        .on("error", (err) => {
+        .on('error', (err) => {
           reject(err);
           process.exit(1);
         });

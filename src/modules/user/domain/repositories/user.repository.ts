@@ -2,8 +2,8 @@ import {
   UserCreateResult,
   UserGetByPageResult,
   UserGetResult,
-} from "../../infrastructure/user.infrastructure";
-import { User } from "../user";
+} from '../../infrastructure/user.infrastructure';
+import { User } from '../user';
 
 export interface UserRepository {
   save(user: User): Promise<UserCreateResult>;

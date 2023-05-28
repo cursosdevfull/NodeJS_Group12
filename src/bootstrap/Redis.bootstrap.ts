@@ -1,9 +1,9 @@
-import IORedis from "ioredis";
-import { DataSource } from "typeorm";
+import IORedis from 'ioredis';
+import { DataSource } from 'typeorm';
 
-import logger from "../helpers/Logger";
-import { IRedisConfig, Parameters } from "../helpers/Parameters";
-import { Bootstrap } from "./bootstrap.interface";
+import logger from '../helpers/Logger';
+import { IRedisConfig, Parameters } from '../helpers/Parameters';
+import { Bootstrap } from './bootstrap.interface';
 
 export default class RedisBootstrap implements Bootstrap {
   private static client: IORedis;
@@ -14,13 +14,13 @@ export default class RedisBootstrap implements Bootstrap {
       const client = new IORedis(redisConfig);
 
       client
-        .on("connect", () => {
+        .on('connect', () => {
           logger.info(
             `Redis connected at ${redisConfig.host}:${redisConfig.port}`
           );
           resolve(true);
         })
-        .on("error", (err) => {
+        .on('error', (err) => {
           logger.error(`Redis connection error: ${err}`);
           reject(err);
         });
@@ -42,10 +42,10 @@ export default class RedisBootstrap implements Bootstrap {
   }
 
   static async set(key: string, value: string) {
-    await this.client.set(key, value, "PX", 24 * 60 * 60 * 1000);
+    await this.client.set(key, value, 'PX', 24 * 60 * 60 * 1000);
   }
 
-  static async clear(prefix: string = "") {
+  static async clear(prefix = '') {
     const keys = await this.client.keys(`${prefix}*`);
     if (keys.length > 0) {
       await this.client.del(keys);

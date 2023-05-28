@@ -1,10 +1,10 @@
-import { addMinutes } from "date-fns";
-import jwt from "jsonwebtoken";
-import { v4 as uuidv4 } from "uuid";
+import { addMinutes } from 'date-fns';
+import jwt from 'jsonwebtoken';
+import { v4 as uuidv4 } from 'uuid';
 
-import { Parameters } from "../../helpers/Parameters";
-import { User } from "../../modules/user/domain/user";
-import { IError } from "../error/error.interface";
+import { Parameters } from '../../helpers/Parameters';
+import { User } from '../../modules/user/domain/user';
+import { IError } from '../error/error.interface';
 
 export class TokenService {
   static generateAccessToken(user: User) {
@@ -34,14 +34,14 @@ export class TokenService {
       jwt.verify(token, Parameters.SECRET_KEY_WORD, (error, payload) => {
         if (error) {
           const err: IError = new Error();
-          if (error.message === "jwt expired") {
+          if (error.message === 'jwt expired') {
             err.status = 403;
-            err.message = "Token expired";
-            err.stack = "Token expired";
+            err.message = 'Token expired';
+            err.stack = 'Token expired';
           } else {
             err.status = 401;
-            err.message = "Unauthorized";
-            err.stack = "Unauthorized";
+            err.message = 'Unauthorized';
+            err.stack = 'Unauthorized';
           }
           reject(err);
         }

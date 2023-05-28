@@ -1,32 +1,32 @@
-import { Column, Entity, JoinTable, ManyToMany, PrimaryColumn } from "typeorm";
+import { Column, Entity, JoinTable, ManyToMany, PrimaryColumn } from 'typeorm';
 
-import { BaseEntity } from "../../../../core/infrastructure/base-entity";
-import { RoleEntity } from "../../../role/infrastructure/entities/role.entity";
+import { BaseEntity } from '../../../../core/infrastructure/base-entity';
+import { RoleEntity } from '../../../role/infrastructure/entities/role.entity';
 
-@Entity({ name: "user" })
+@Entity({ name: 'user' })
 export class UserEntity extends BaseEntity {
-  @PrimaryColumn({ type: "uuid" })
+  @PrimaryColumn({ type: 'uuid' })
   id: string;
 
-  @Column({ type: "varchar", length: 50 })
+  @Column({ type: 'varchar', length: 50 })
   name: string;
 
-  @Column({ type: "varchar", length: 50 })
+  @Column({ type: 'varchar', length: 50 })
   lastname: string;
 
-  @Column({ type: "varchar", length: 100, unique: true })
+  @Column({ type: 'varchar', length: 100, unique: true })
   email: string;
 
-  @Column({ type: "varchar", length: 100 })
+  @Column({ type: 'varchar', length: 100 })
   password: string;
 
-  @Column({ type: "varchar", length: 100, nullable: true })
+  @Column({ type: 'varchar', length: 100, nullable: true })
   photo: string;
 
-  @Column({ type: "bool", default: true })
+  @Column({ type: 'bool', default: true })
   active: boolean;
 
-  @Column({ type: "varchar", length: 300 })
+  @Column({ type: 'varchar', length: 300 })
   refreshToken: string;
 
   @ManyToMany(() => RoleEntity, (role) => role.users)

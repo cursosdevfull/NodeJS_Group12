@@ -1,11 +1,11 @@
-import { validate } from "class-validator";
-import { NextFunction, Request, Response } from "express";
+import { validate } from 'class-validator';
+import { NextFunction, Request, Response } from 'express';
 
-import { IError } from "../../../../core/error/error.interface";
-import { AuthApplication } from "../../application/auth.application";
-import { Auth } from "../../domain/auth";
-import { AuthLoginDto } from "./dtos/auth-login.dto";
-import { AuthRefreshTokenDto } from "./dtos/auth-refresh-token.dto";
+import { IError } from '../../../../core/error/error.interface';
+import { AuthApplication } from '../../application/auth.application';
+import { Auth } from '../../domain/auth';
+import { AuthLoginDto } from './dtos/auth-login.dto';
+import { AuthRefreshTokenDto } from './dtos/auth-refresh-token.dto';
 
 export class AuthController {
   constructor(private readonly application: AuthApplication) {}
@@ -21,7 +21,7 @@ export class AuthController {
 
     if (errors.length > 0) {
       const err: IError = new Error();
-      err.message = "Validation error";
+      err.message = 'Validation error';
       err.stack = JSON.stringify(errors);
       err.status = 411;
 
@@ -54,7 +54,7 @@ export class AuthController {
 
     if (errors.length > 0) {
       const err: IError = new Error();
-      err.message = "Validation error";
+      err.message = 'Validation error';
       err.stack = JSON.stringify(errors);
       err.status = 411;
 
@@ -72,7 +72,7 @@ export class AuthController {
     return res.status(200).json(refreshTokenResult.value);
   }
 
-  async getUserList(req: Request, res: Response, next: NextFunction) {
+  async getUserList(req: Request, res: Response) {
     const result = await this.application.getUserList();
 
     return res.status(200).json(result);

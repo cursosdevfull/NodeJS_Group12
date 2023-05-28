@@ -1,16 +1,16 @@
-import { err, ok, Result } from "neverthrow";
-import { In } from "typeorm";
+import { err, ok, Result } from 'neverthrow';
+import { In } from 'typeorm';
 
-import DatabaseBootstrap from "../../../bootstrap/Database.bootstrap";
-import { IError } from "../../../core/error/error.interface";
-import { AuthRepository } from "../../auth/domain/repositories/auth.repository";
-import { RoleEntity } from "../../role/infrastructure/entities/role.entity";
-import { UserResponse } from "../application/responses/user-created";
-import { UserRepository } from "../domain/repositories/user.repository";
-import { User } from "../domain/user";
-import { UserModelDto } from "./dtos/user-model.dto";
-import { UserDto } from "./dtos/user.dto";
-import { UserEntity } from "./entities/user.entity";
+import DatabaseBootstrap from '../../../bootstrap/Database.bootstrap';
+import { IError } from '../../../core/error/error.interface';
+import { AuthRepository } from '../../auth/domain/repositories/auth.repository';
+import { RoleEntity } from '../../role/infrastructure/entities/role.entity';
+import { UserResponse } from '../application/responses/user-created';
+import { UserRepository } from '../domain/repositories/user.repository';
+import { User } from '../domain/user';
+import { UserModelDto } from './dtos/user-model.dto';
+import { UserDto } from './dtos/user.dto';
+import { UserEntity } from './entities/user.entity';
 
 export type UserCreateResult = Result<any, IError>;
 //export type UserGetResult = Result<UserResponse | UserResponse[], IError>;
@@ -53,7 +53,7 @@ export class UserInfrastructure implements UserRepository, AuthRepository {
         DatabaseBootstrap.dataSource?.getRepository(UserEntity);
       const userEntity = await repository?.findOne({
         where: { id, active: true },
-        relations: ["roles"],
+        relations: ['roles'],
       });
 
       //return ok(UserDto.fromDataToResponse(userEntity));
@@ -74,13 +74,13 @@ export class UserInfrastructure implements UserRepository, AuthRepository {
         DatabaseBootstrap.dataSource?.getRepository(UserEntity);
       const userEntity = await repository?.findOne({
         where: { email, active: true },
-        relations: ["roles"],
+        relations: ['roles'],
       });
 
       if (!userEntity) {
         const objErr: IError = new Error();
-        objErr.message = "User not found";
-        objErr.stack = "User not found";
+        objErr.message = 'User not found';
+        objErr.stack = 'User not found';
         objErr.status = 404;
         return err(objErr);
       }
@@ -105,13 +105,13 @@ export class UserInfrastructure implements UserRepository, AuthRepository {
         DatabaseBootstrap.dataSource?.getRepository(UserEntity);
       const userEntity = await repository?.findOne({
         where: { refreshToken, active: true },
-        relations: ["roles"],
+        relations: ['roles'],
       });
 
       if (!userEntity) {
         const objErr: IError = new Error();
-        objErr.message = "User not found";
-        objErr.stack = "User not found";
+        objErr.message = 'User not found';
+        objErr.stack = 'User not found';
         objErr.status = 404;
         return err(objErr);
       }
@@ -161,7 +161,7 @@ export class UserInfrastructure implements UserRepository, AuthRepository {
     try {
       const repository =
         DatabaseBootstrap.dataSource?.getRepository(UserEntity);
-      const [userEntities, total] = await repository?.findAndCount({
+      const [userEntities, total] = await repository.findAndCount({
         skip: page * pageSize,
         take: pageSize,
         where: { active: true },

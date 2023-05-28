@@ -1,0 +1,28 @@
+[
+  {
+    "id": "227b5c7c-35f4-44f5-af15-bbf508d24d23",
+    "name": "Juan",
+    "lastname": "Pérez",
+    "email": "juan.perez@correo.com",
+    "password": "$2a$10$6EaRt1JkyR3b.yO4ar.zouNI7fPxJCMF.PfszeA39csVdTlozRktO",
+    "photo": "https://curso-nodejs12.s3.amazonaws.com/photos/profile/1685199698467.jpg",
+    "active": true,
+    "createdAt": "2023-05-27T15:01:39.000Z",
+    "updatedAt": null,
+    "deletedAt": null,
+    "refreshToken": "6e87ad86-06f6-4727-aba2-401174ebb792"
+  },
+  {
+    "id": "5836ff86-8f5e-4abc-9be6-21cea828bedc",
+    "name": "Sergio",
+    "lastname": "Hidalgo",
+    "email": "sergio@correo.com",
+    "password": "$2a$10$6ssIGLFdkMM9NzKXDAaIY..1FOMwASOwl9KuvINHfi8D6YwEJAED.",
+    "photo": null,
+    "active": true,
+    "createdAt": "2023-05-20T17:14:04.000Z",
+    "updatedAt": null,
+    "deletedAt": null,
+    "refreshToken": "ff9358f7-7803-4669-80da-ebca6425b934"
+  }
+]

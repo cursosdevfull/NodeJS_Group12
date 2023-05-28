@@ -1,6 +1,6 @@
-import { validate } from "uuid";
+import { validate } from 'uuid';
 
-import { ValueObject } from "./value-object";
+import { ValueObject } from './value-object';
 
 export class UuidVO extends ValueObject<string> {
   private constructor(uuid: string) {
@@ -14,7 +14,7 @@ export class UuidVO extends ValueObject<string> {
 
   static create(uuid: string): UuidVO {
     if (!this.validateUuid(uuid)) {
-      throw new Error("Invalid uuid");
+      throw new Error('Invalid uuid');
     }
     return new UuidVO(uuid);
   }

@@ -1,7 +1,7 @@
-import { Crypt } from "../../../helpers/Crypt";
-import { UserRepository } from "../domain/repositories/user.repository";
-import { User } from "../domain/user";
-import { UserCreateResult } from "../infrastructure/user.infrastructure";
+import { Crypt } from '../../../helpers/Crypt';
+import { UserRepository } from '../domain/repositories/user.repository';
+import { User } from '../domain/user';
+import { UserCreateResult } from '../infrastructure/user.infrastructure';
 
 export class UserApplication {
   constructor(private readonly userRepository: UserRepository) {}

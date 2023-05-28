@@ -1,7 +1,7 @@
-import { err, ok, Result } from "neverthrow";
+import { err, ok, Result } from 'neverthrow';
 
-import { EmailVO } from "../../../core/domain/value-objets/email.vo";
-import { StringLongVO } from "../../../core/domain/value-objets/string-long.vo";
+import { EmailVO } from '../../../core/domain/value-objets/email.vo';
+import { StringLongVO } from '../../../core/domain/value-objets/string-long.vo';
 
 export type AuthProperties = {
   readonly email: string;
@@ -31,7 +31,7 @@ export class Auth {
 
     const passwordResult = StringLongVO.create(
       properties.password,
-      "password",
+      'password',
       8
     );
     if (passwordResult.isErr()) return err(passwordResult.error);

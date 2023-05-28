@@ -1,4 +1,4 @@
-import { validate } from "uuid";
+import { validate } from 'uuid';
 
 /*
 
@@ -47,7 +47,7 @@ export interface UserOptional {
 export type UserProperties = UserRequired & Partial<UserOptional>;
 
 export type UserUpdateProperties = Partial<
-  Omit<UserRequired, "email"> & Pick<UserOptional, "photo" | "refreshToken">
+  Omit<UserRequired, 'email'> & Pick<UserOptional, 'photo' | 'refreshToken'>
 >;
 
 export class User {
@@ -67,7 +67,7 @@ export class User {
   constructor(properties: UserProperties) {
     Object.assign(this, properties);
 
-    if (!validate(this.id)) throw new Error("Invalid id");
+    if (!validate(this.id)) throw new Error('Invalid id');
   }
 
   properties(): UserProperties {
